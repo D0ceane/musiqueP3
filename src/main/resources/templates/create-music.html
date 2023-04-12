@@ -7,19 +7,24 @@
     <title>Ajouter de la music</title>
 </head>
 <body>
-<div class="container">
-    <h1>Ajouter votre music</h1>
-    <form th:action="@{/createMusic}" method="POST" th:object="${createMusicForm}">
-        <div class="mb-3">
-            <label for="exampleInputTitle" class="form-label">Titre*</label>
-            <input type="text" th:field="*{title}" class="form-control" id="exampleInputTitle" required>
-        </div>
-        <div class="mb-3">
-            <label for="exampleDescription" class="form-label">Description</label>
-            <textarea type="text" th:field="*{description}" class="form-control" id="exampleDescription" rows="4"> </textarea>
-        </div>
-        <button type="submit" class="btn btn-primary">Ajouter</button>
-    </form>
-</div>
+    <div class="container">
+        <h1>Ajouter votre music</h1>
+        <form th:action="@{/createMusic}" method="POST" th:object="${createMusicForm}">
+            <table>
+                <tr>
+                    <td>Title:</td>
+                    <td><input type="text" th:field="*{title}" /></td>
+                    <td th:if="${#fields.hasErrors('title')}" th:errors="*{title}">Title Error</td>
+                </tr>
+                <tr>
+                    <td>Description:</td>
+                    <td><input type="text" th:field="*{description}" /></td>
+                    <td th:if="${#fields.hasErrors('description')}" th:errors="*{description}">Description Error</td>
+                </tr>
+                <tr>
+                    <td><button type="submit">Submit</button></td>
+                </tr>
+            </table>
+    </div>
 </body>
 </html>

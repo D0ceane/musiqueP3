@@ -19,6 +19,8 @@ public class MusicRessource {
 
     @GetMapping("api/{id}")
     @ResponseBody
-    public Optional<Music> getId(@PathVariable("id") String number) {return Optional.ofNullable(musicRepository.view(number));}
+    public Optional<Music> getId(@PathVariable("id") String number) {
+        return Optional.ofNullable(musicRepository.view(number));
+    }
 }
 

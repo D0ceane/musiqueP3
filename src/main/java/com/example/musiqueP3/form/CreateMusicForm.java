@@ -1,6 +1,11 @@
 package com.example.musiqueP3.form;
 
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
+
 public class CreateMusicForm {
+    @NotEmpty
+    @NotNull
     private String title;
     private String description;
 

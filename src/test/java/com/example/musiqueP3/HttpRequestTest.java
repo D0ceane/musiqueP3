@@ -1,4 +1,5 @@
 package com.example.musiqueP3;
+
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -16,8 +17,23 @@ public class HttpRequestTest {
     @Test
     public void greetingShouldReturnDefaultMessage() throws Exception {
         assertThat(this.restTemplate.getForObject("http://localhost:"+ port + "/",
-                String.class)).contains("Hello world !");
+                String.class)).contains("Hello !");
 
     }
-}
 
+    @Test
+    public void listShouldReturnDefaultMessage() throws Exception {
+        assertThat(this.restTemplate.getForObject("http://localhost/list",
+                String.class)).contains("List de mes musiques");
+
+    }
+
+    @Test
+    public void createShouldReturnDefaultMessage() throws Exception {
+        assertThat(this.restTemplate.getForObject("http://localhost/create-music",
+                String.class)).contains("Ajouter votre music");
+
+    }
+
+
+}

@@ -3,19 +3,20 @@ package com.example.musiqueP3.controller;
 import com.example.musiqueP3.entities.Music;
 import com.example.musiqueP3.form.CreateMusicForm;
 import com.example.musiqueP3.repository.MusicRepository;
-import com.example.musiqueP3.service.MusicService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-
-import java.sql.SQLException;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import java.util.List;
 
 @Controller
-public class MusicController {
+public class MusicController implements WebMvcConfigurer {
     @Autowired
     private MusicRepository musicRepository;
     @RequestMapping("/")
@@ -35,7 +36,10 @@ public class MusicController {
     }
 
     @PostMapping("/createMusic")
-    public String createMusic (@ModelAttribute CreateMusicForm createMusicForm) {
+    public String createMusic (@Valid @ModelAttribute CreateMusicForm createMusicForm, BindingResult bindingResult) {
+        if (bindingResult.hasErrors()) {
+            return "create-music";
+        }
         Music music = new Music();
         music.setTitle(createMusicForm.getTitle());
         music.setDescription(createMusicForm.getDescription());
@@ -43,7 +47,7 @@ public class MusicController {
         return "index";
     }
 
-    @GetMapping("/view-music/"+"{id}")
+        @GetMapping("/view-music/"+"{id}")
     public String displayMusic(@PathVariable("id") String number, Model model) {
         try {
             Music music = musicRepository.view(number);
